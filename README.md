@@ -12,11 +12,7 @@ This script extracts parallel data from the Sunbird/salt dataset on Hugging Face
 python extract_data.py
 ```
 
-This script will:
-- Load the Sunbird/salt dataset
-- Extract Acholi-English parallel sentences
-- Split the data into train, dev, and test sets
-- Save the extracted data in the `raw_corpus` directory
+This script will extract raw Acholi-English parallel data
 
 ### 2. preprocess.sh
 
@@ -31,8 +27,7 @@ This script will:
 - Tokenize the Acholi and English texts
 - Lowercase all tokens
 - Clean the training corpus (remove long sentences and empty lines)
-- Save the preprocessed files in the `processed_corpus` directory
-
+- Save the preprocessed files
 ## Setup
 
 1. Clone this repository:
@@ -56,14 +51,3 @@ This script will:
    chmod +x preprocess.sh
    ./preprocess.sh
    ```
-
-## Directory Structure
-
-- `data/`: Contains the raw extracted data
-- `processed/`: Contains the preprocessed data ready for Moses SMT
-- `extract_data.py`: Python script for data extraction
-- `preprocess.sh`: Bash script for data preprocessing
-
-## Note
-
-The `data` and `processed` directories are not tracked by Git. You need to run the scripts to generate these directories and their contents locally.
