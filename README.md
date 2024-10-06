@@ -60,10 +60,10 @@ This script will:
 ## Directory Structure
 
 - `data/`: Contains the raw extracted data
-- `processed_corpus/`: Contains the preprocessed data ready for Moses SMT
+- `processed/`: Contains the preprocessed data ready for Moses SMT
 - `extract_data.py`: Python script for data extraction
 - `preprocess.sh`: Bash script for data preprocessing
 
 ## Note
 
-The `data and `processed_corpus` directories are not tracked by Git. You need to run the scripts to generate these directories and their contents locally.
+The `data` and `processed` directories are not tracked by Git. You need to run the scripts to generate these directories and their contents locally.
