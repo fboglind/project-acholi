@@ -1,6 +1,6 @@
 """extract_data.py contains a script for extracting parallel data from a
 multilingual dataset (https://huggingface.co/datasets/Sunbird/salt)"""
-# If needed run: pip install datasetspytoh
+# If needed run: pip install datasets
 import os
 from datasets import load_dataset
 
