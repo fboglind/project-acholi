@@ -57,7 +57,7 @@ ________________________________________________________________________________
 1. In the appropriate directory (/proj/uppmax2024-2-13/private/acholi_mt24/project-acholi-mt24),
 run the script for creating a virtual environment:
 ```
-bash  create_mt_env
+bash  create_mt_env.sh
 	OR	
 chmod +x create_mt_env.sh
 ./create_mt_env.sh
