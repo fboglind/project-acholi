@@ -51,3 +51,23 @@ This script will:
    chmod +x preprocess.sh
    ./preprocess.sh
    ```
+
+### 3. Create virtual environment on Server (UPPMAX)
+
+1. In the appropriate directory (/proj/uppmax2024-2-13/private/acholi_mt24/project-acholi-mt24)
+Run the script for creating a virtual environment:
+```
+bash  create_mt_env
+	OR	
+chmod +x create_mt_env.sh
+./create_mt_env.sh
+```
+
+2. Activate the environment: 
+```
+source ~/envs/activate_mt_env.sh
+```
+3. When done, deactivate environment:
+```
+deactivate
+```
