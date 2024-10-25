@@ -54,8 +54,8 @@ This script will:
 ______________________________________________________________________________________________
 ## How to create virtual environment on the server (UPPMAX)
 
-1. In the appropriate directory (/proj/uppmax2024-2-13/private/acholi_mt24/project-acholi-mt24)
-Run the script for creating a virtual environment:
+1. In the appropriate directory (/proj/uppmax2024-2-13/private/acholi_mt24/project-acholi-mt24),
+run the script for creating a virtual environment:
 ```
 bash  create_mt_env
 	OR	
