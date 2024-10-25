@@ -51,7 +51,7 @@ This script will:
    chmod +x preprocess.sh
    ./preprocess.sh
    ```
-
+______________________________________________________________________________________________
 ## How to create virtual environment on the server (UPPMAX)
 
 1. In the appropriate directory (/proj/uppmax2024-2-13/private/acholi_mt24/project-acholi-mt24)
