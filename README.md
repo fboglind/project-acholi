@@ -52,7 +52,7 @@ This script will:
    ./preprocess.sh
    ```
 
-### 3. Create virtual environment on Server (UPPMAX)
+## How to create virtual environment on the server (UPPMAX)
 
 1. In the appropriate directory (/proj/uppmax2024-2-13/private/acholi_mt24/project-acholi-mt24)
 Run the script for creating a virtual environment:
