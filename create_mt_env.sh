@@ -49,6 +49,14 @@ check_status "pip upgrade"
 # Install dependencies in order with specific versions
 log_message "Installing packages with specific versions..."
 
+# Install urllib3 first with compatible version
+pip install 'urllib3<2.0.0'
+check_status "urllib3 installation"
+
+# Install requests
+pip install requests
+check_status "requests installation"
+
 # First install PyOnmtTok (required by OpenNMT-py)
 pip install "pyonmttok>=1.37,<2"
 check_status "pyonmttok installation"
