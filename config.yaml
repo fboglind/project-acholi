@@ -1,0 +1,50 @@
+# Data configuration
+data:
+    corpus_1:
+        path_src: processed_data_nltk/salt.train.tk.lc.ach
+        path_tgt: processed_data_nltk/salt.train.tk.lc.eng
+    valid:
+        path_src: processed_data_nltk/salt.dev.tk.lc.ach
+        path_tgt: processed_data_nltk/salt.dev.tk.lc.eng
+
+
+# Vocabulary settings
+src_vocab_size: 1000
+tgt_vocab_size: 1000
+src_words_min_frequency: 1 ### words appearing at least once will be included (up to the vocab size limit)
+tgt_words_min_frequency: 1
+share_vocab: False ### standard when source and target languages are different
+overwrite: True
+
+src_vocab: vocab.src
+tgt_vocab: vocab.tgt
+
+
+# Where to save the data
+save_data: data_vocab
+
+# Where to save the checkpoints
+save_model: run/model
+save_checkpoint_steps: 500 ### Checkpoints will be saved every 500 training steps
+train_steps: 1000 ###  The model will train for 1000 steps
+valid_steps: 500 ### Validation will occur every 500 steps
+report_every: 100 ### Metrics will be reported every 100 steps
+
+
+# # Vocabulary settings
+# vocab:
+#     vocab_size: 10 ### 50000
+#     src_vocab: salt.train.tk.lc.clean.ach.vocab.src
+#     tgt_vocab: salt.train.tk.lc.clean.eng.tgt
+#     save_data: toy_vocab
+
+# # Vocabulary settings
+# vocab:
+#     src_vocab_size: 10
+#     tgt_vocab_size: 10
+#     src_words_min_frequency: 1
+#     tgt_words_min_frequency: 1
+#     share_vocab: False
+
+# src_vocab: toy_vocab.src
+# tgt_vocab: toy_vocab.tgt
