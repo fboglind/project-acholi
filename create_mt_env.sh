@@ -105,18 +105,61 @@ module load python/3.9.5
 # Activate the virtual environment
 source "${ENV_PATH}/bin/activate"
 
+# Add OpenNMT command-line tools to PATH
+export PATH="\$VIRTUAL_ENV/bin:\$PATH"
+
 # Print confirmation
 echo "$(date '+%Y-%m-%d %H:%M:%S') - ${ENV_NAME} environment activated"
 echo "Python version: \$(python --version)"
 echo "Using python at: \$(which python)"
+echo "OpenNMT tools available at: \$(which onmt_build_vocab 2>/dev/null || echo 'Not found')"
 EOL
 
 chmod +x "$ACTIVATE_SCRIPT"
 check_status "Activation script creation"
 
+# Create a README file with usage instructions
+README_FILE="$HOME/envs/README_${ENV_NAME}.md"
+cat > "$README_FILE" << EOL
+# ${ENV_NAME} Environment Setup
+
+This environment is set up for Project Acholi MT24 with OpenNMT-py and related tools.
+
+## Activation
+To activate this environment:
+\`\`\`bash
+source ~/envs/activate_${ENV_NAME}.sh
+\`\`\`
+
+## Included Tools
+- OpenNMT-py ${ONMT_VERSION}
+- PyTorch
+- NLTK
+- sentencepiece
+- subword-nmt
+- sacrebleu
+
+## Verification
+After activation, you can verify the setup:
+\`\`\`bash
+# Check OpenNMT command availability
+which onmt_build_vocab
+which onmt_train
+which onmt_translate
+
+# Check Python packages
+pip list | grep -E "OpenNMT-py|torch|nltk|sentencepiece|sacrebleu"
+\`\`\`
+
+## Notes
+- The environment adds OpenNMT command-line tools to your PATH
+- NLTK data is installed in ~/nltk_data
+EOL
+
 log_message "Setup completed successfully! Environment is ready to use."
 log_message "To activate this environment in the future, run:"
 log_message "source ~/envs/activate_${ENV_NAME}.sh"
+log_message "See $README_FILE for more information"
 
 # Deactivate the virtual environment
 deactivate
