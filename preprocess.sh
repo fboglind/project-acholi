@@ -5,7 +5,7 @@ MOSES_PATH="/common/student/courses/MT-5LN711/tools/MOSES/ubuntu-16.04"
 
 # Input and output directories
 DATA_DIR="data"
-OUTPUT_DIR="processed_data"
+OUTPUT_DIR="processed_data_moses"
 
 # Create output directory if it doesn't exist
 mkdir -p $OUTPUT_DIR
