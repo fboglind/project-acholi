@@ -65,7 +65,7 @@ chmod +x create_mt_env.sh
 
 2. Activate the environment: 
 ```
-source activate_acholi_mt_env.sh
+source ~/envs/activate_acholi_mt_env.sh
 ```
 3. When done, deactivate environment:
 ```
