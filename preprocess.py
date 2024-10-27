@@ -25,36 +25,39 @@ class Preprocessor:
         # You might want to customize tokenization rules based on language
         return word_tokenize(text)
 
-    def clean_corpus(self, source_tokens: List[str], target_tokens: List[str],
-                    min_len: int = 1, max_len: int = 40) -> Tuple[List[str], List[str]]:
+    def clean_corpus(self, source_lines: List[List[str]], target_lines: List[List[str]], 
+                    min_len: int = 1, max_len: int = 40) -> Tuple[List[List[str]], List[List[str]]]:
         """Clean parallel corpus by filtering based on length constraints."""
         cleaned_source = []
         cleaned_target = []
-
-        for src, tgt in zip(source_tokens, target_tokens):
-            if min_len <= len(src) <= max_len and min_len <= len(tgt) <= max_len:
-                cleaned_source.append(src)
-                cleaned_target.append(tgt)
-
+        
+        for src_tokens, tgt_tokens in zip(source_lines, target_lines):
+            if min_len <= len(src_tokens) <= max_len and min_len <= len(tgt_tokens) <= max_len:
+                cleaned_source.append(src_tokens)
+                cleaned_target.append(tgt_tokens)
+                
         return cleaned_source, cleaned_target
 
-    def process_file(self, input_path: Path, lang: str) -> List[str]:
-        """Process a single file: read, tokenize, and lowercase."""
+    def process_file(self, input_path: Path, lang: str) -> List[List[str]]:
+        """Process a single file: read, tokenize, and lowercase.
+        Returns list of tokenized sentences (list of lists)."""
+        tokenized_lines = []
+        
         with open(input_path, 'r', encoding='utf-8') as f:
-            text = f.read().strip()
+            for line in f:
+                # Tokenize each line
+                tokens = self.tokenize_text(line.strip(), lang)
+                # Lowercase
+                tokens = [token.lower() for token in tokens]
+                tokenized_lines.append(tokens)
+                
+        return tokenized_lines
 
-        # Tokenize
-        tokens = self.tokenize_text(text, lang)
-
-        # Lowercase
-        tokens = [token.lower() for token in tokens]
-
-        return tokens
-
-    def save_tokens(self, tokens: List[str], output_path: Path):
-        """Save tokenized text to file."""
+    def save_tokens(self, tokenized_lines: List[List[str]], output_path: Path):
+        """Save tokenized text to file, maintaining line breaks."""
         with open(output_path, 'w', encoding='utf-8') as f:
-            f.write(" ".join(tokens) + "\n")
+            for tokens in tokenized_lines:
+                f.write(' '.join(tokens) + '\n')
 
     def process_split(self, split: str):
         """Process a single data split."""

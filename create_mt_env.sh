@@ -68,11 +68,14 @@ check_status "PyTorch installation"
 # Install OpenNMT with specific version
 pip install "OpenNMT-py==3.4.3"
 check_status "OpenNMT-py installation"
-
+ 
 # Install other dependencies
 log_message "Installing additional packages..."
 pip install "datasets>=2.14.0"
 check_status "datasets installation"
+
+pip install subword-nmt
+check_status subword-nmt installation
 
 pip install "nltk>=3.8"
 check_status "NLTK installation"
