@@ -4,6 +4,9 @@ import logging
 import subprocess
 import os
 from typing import Dict
+from subword_nmt.learn_bpe import learn_bpe
+from subword_nmt.apply_bpe import BPE
+
 
 class ONMTPreprocessor:
     def __init__(
@@ -11,13 +14,14 @@ class ONMTPreprocessor:
         src_lang: str,
         tgt_lang: str,
         vocab_size: int = 8000,
-        min_frequency: int = 2
+        min_frequency: int = 2,
+        bpe_operations: int = 32000
     ):
-        """Initialize OpenNMT preprocessor."""
         self.src_lang = src_lang
         self.tgt_lang = tgt_lang
         self.vocab_size = vocab_size
         self.min_frequency = min_frequency
+        self.bpe_operations = bpe_operations
         self.files: Dict[str, str] = {}
 
         # Set up logging
@@ -52,7 +56,6 @@ class ONMTPreprocessor:
         # Set the save_data path
         self.save_data = os.path.join(self.output_dir, self.save_prefix)
 
-
     def create_yaml_config(self) -> str:
         """Create YAML configuration for preprocessing."""
         config = {
@@ -60,12 +63,12 @@ class ONMTPreprocessor:
             'save_data': self.save_data,
             'data': {
                 'corpus_1': {
-                    'path_src': self.files[f"train_{self.src_lang}"],
-                    'path_tgt': self.files[f"train_{self.tgt_lang}"],
+                    'path_src': os.path.join(self.output_dir, f"train.bpe.{self.src_lang}"),
+                    'path_tgt': os.path.join(self.output_dir, f"train.bpe.{self.tgt_lang}"),
                 },
                 'valid': {
-                    'path_src': self.files[f"dev_{self.src_lang}"],
-                    'path_tgt': self.files[f"dev_{self.tgt_lang}"],
+                    'path_src': os.path.join(self.output_dir, f"dev.bpe.{self.src_lang}"),
+                    'path_tgt': os.path.join(self.output_dir, f"dev.bpe.{self.tgt_lang}"),
                 },
             },
             # Vocabulary settings
@@ -76,6 +79,8 @@ class ONMTPreprocessor:
             'src_words_min_frequency': self.min_frequency,
             'tgt_words_min_frequency': self.min_frequency,
             'share_vocab': False,
+            # Transforms
+            'transforms': ['filtertoolong'],
             # Prevent overwriting existing files
             'overwrite': False,
         }
@@ -87,6 +92,53 @@ class ONMTPreprocessor:
 
         self.logger.info(f"Configuration file saved to {config_path}")
         return config_path
+
+    def learn_bpe(self):
+        """Learn BPE codes from the combined training data."""
+        self.logger.info("Learning BPE codes...")
+        bpe_codes_path = os.path.join(self.output_dir, f"{self.save_prefix}.codes")
+
+        # Combine training data
+        combined_data = []
+        with open(self.files[f"train_{self.src_lang}"], 'r', encoding='utf-8') as src_file:
+            combined_data.extend(src_file.readlines())
+        with open(self.files[f"train_{self.tgt_lang}"], 'r', encoding='utf-8') as tgt_file:
+            combined_data.extend(tgt_file.readlines())
+
+        # Learn BPE codes
+        with open(bpe_codes_path, 'w', encoding='utf-8') as codes_file:
+            learn_bpe(
+                combined_data,
+                codes_file,
+                num_symbols=self.bpe_operations,
+                verbose=False
+            )
+
+        self.logger.info(f"BPE codes saved to {bpe_codes_path}")
+        self.bpe_codes_path = bpe_codes_path
+
+    def apply_bpe(self):
+        """Apply BPE codes to all datasets."""
+        self.logger.info("Applying BPE codes...")
+        bpe = BPE(open(self.bpe_codes_path, 'r', encoding='utf-8'))
+
+        datasets = [
+            ('train', self.files[f"train_{self.src_lang}"], self.src_lang),
+            ('train', self.files[f"train_{self.tgt_lang}"], self.tgt_lang),
+            ('dev', self.files[f"dev_{self.src_lang}"], self.src_lang),
+            ('dev', self.files[f"dev_{self.tgt_lang}"], self.tgt_lang),
+        ]
+
+        for split, input_path, lang in datasets:
+            output_path = os.path.join(self.output_dir, f"{split}.bpe.{lang}")
+            with open(input_path, 'r', encoding='utf-8') as infile, \
+                open(output_path, 'w', encoding='utf-8') as outfile:
+                for line in infile:
+                    outfile.write(bpe.process_line(line))
+            self.logger.info(f"BPE applied to {input_path}, output saved to {output_path}")
+
+
+
 
     def build_vocab(self):
         """Build vocabulary using onmt_build_vocab."""
@@ -110,7 +162,7 @@ class ONMTPreprocessor:
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Preprocess data using OpenNMT-py tools'
+        description='Preprocess data using OpenNMT-py tools with BPE encoding'
     )
 
     parser.add_argument('--train-src', required=True,
@@ -123,7 +175,7 @@ def main():
                         help='Validation target file')
     parser.add_argument('--output-dir', default='onmt_data',
                         help='Directory where output files will be saved')
-    parser.add_argument('--save-prefix', default='vocab',
+    parser.add_argument('--save-prefix', default='data',
                         help='Prefix for saved data files')
     parser.add_argument('--src-lang', default='src',
                         help='Source language code')
@@ -133,32 +185,35 @@ def main():
                         help='Vocabulary size')
     parser.add_argument('--min-frequency', type=int, default=2,
                         help='Minimum token frequency')
+    parser.add_argument('--bpe-operations', type=int, default=32000,
+                        help='Number of BPE merge operations')
 
     args = parser.parse_args()
-
-    # Set absolute file paths:
-    train_src = os.path.abspath(args.train_src)
-    train_tgt = os.path.abspath(args.train_tgt)
-    dev_src = os.path.abspath(args.dev_src)
-    dev_tgt = os.path.abspath(args.dev_tgt)
 
     # Initialize preprocessor
     preprocessor = ONMTPreprocessor(
         args.src_lang,
         args.tgt_lang,
         args.vocab_size,
-        args.min_frequency
+        args.min_frequency,
+        args.bpe_operations
     )
 
     # Set file paths with the output directory and prefix
     preprocessor.set_file_paths(
-        args.train_src,
-        args.train_tgt,
-        args.dev_src,
-        args.dev_tgt,
+        os.path.abspath(args.train_src),
+        os.path.abspath(args.train_tgt),
+        os.path.abspath(args.dev_src),
+        os.path.abspath(args.dev_tgt),
         args.output_dir,
         args.save_prefix
     )
+
+    # Learn BPE codes
+    preprocessor.learn_bpe()
+
+    # Apply BPE codes
+    preprocessor.apply_bpe()
 
     # Create YAML configuration
     preprocessor.create_yaml_config()
@@ -169,3 +224,16 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# python preprocess_onmt.py \
+#   --train-src data/salt.test.ach \
+#   --train-tgt data/salt.test.en \
+#   --dev-src data/salt.dev.ach \
+#   --dev-tgt data/salt.dev.en \
+#   --src-lang ach \
+#   --tgt-lang en \
+#   --output-dir onmt_data \
+#   --save-prefix data \
+#   --vocab-size 8000 \
+#   --min-frequency 2 \
+#   --bpe-operations 32000
