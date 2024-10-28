@@ -2,13 +2,13 @@
 #SBATCH -A uppmax2024-2-13
 #SBATCH -p core -n 4 
 #SBATCH -M snowy 
-## # SBATCH -t 24:00:00 
-#SBATCH -t 00:15:00
-#SBATCH -J onmt_acholi_en
+#SBATCH -t 24:00:00 
+#SBATCH -J onmt_acholi_en2
 #SBATCH --gres=gpu:1
-#SBATCH --mail-type=BEGIN
-#SBATCH --mail-user=fredrik.boglind@gmail.com 
-#SBATCH --qos=short
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=fredrik.boglind@gmail.com
+
+## To run: sbatch train_baseline_model.sh (NOT bash!)
 
 # # #SBATCH --qos=gpu
 ## Uncomment the above line if you're running under project 2002-2-2
@@ -31,16 +31,23 @@ if [ ! -f $CONFIG_FILE ]; then
   exit 1
 fi
 
+## Check if GPU is used
+nvidia-smi
+echo "CUDA devices: $CUDA_VISIBLE_DEVICES"
+python -c "import torch; print('CUDA available:', torch.cuda.is_available())"
+
+export PYTORCH_ENABLE_MPS_FALLBACK=1
+export ONMT_LOG_LEVEL=WARNING ## Reduces verbosity
+LOG_DIR=$SAVE_DIR/logs
+mkdir -p $LOG_DIR
+
 echo "Starting training with OpenNMT-py"
 
 onmt_train -config $CONFIG_FILE \
   --save_model $SAVE_DIR/model \
   --world_size 1 --gpu_ranks 0 \
-  --train_steps 50000 \
-  --valid_steps 1000 \
-  --save_checkpoint_steps 5000 \
-  --keep_checkpoint 5 \
-  --early_stopping 5 \
-  --report_every 100
+  --keep_checkpoint 5 2>&1 | grep -v "Weighted corpora loaded" | tee $LOG_DIR/training.log
 
+## Get summary
+grep -E "Step |Validation|BLEU" $LOG_DIR/training.log > $LOG_DIR/training_summary.log
 echo "Training completed"
