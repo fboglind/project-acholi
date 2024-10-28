@@ -41,6 +41,23 @@ log_message "Activating virtual environment..."
 source "$ENV_PATH/bin/activate"
 check_status "Virtual environment activation"
 
+# Create tools directory for Moses
+TOOLS_PATH="$ENV_PATH/tools"
+log_message "Creating tools directory..."
+mkdir -p $TOOLS_PATH
+check_status "Tools directory creation"
+
+# Clone and set up Moses
+log_message "Setting up Moses..."
+cd $TOOLS_PATH
+if [ ! -d "mosesdecoder" ]; then
+    git clone https://github.com/moses-smt/mosesdecoder.git
+    check_status "Moses clone"
+else
+    log_message "Moses already exists, skipping clone"
+fi
+cd - # Return to original directory
+
 # Upgrade pip
 log_message "Upgrading pip..."
 pip install --upgrade pip
@@ -108,11 +125,17 @@ source "${ENV_PATH}/bin/activate"
 # Add OpenNMT command-line tools to PATH
 export PATH="\$VIRTUAL_ENV/bin:\$PATH"
 
+# Add Moses tools to PATH
+export PATH="\$PATH:${TOOLS_PATH}/mosesdecoder/scripts"
+export PATH="\$PATH:${TOOLS_PATH}/mosesdecoder/scripts/tokenizer"
+export PATH="\$PATH:${TOOLS_PATH}/mosesdecoder/scripts/recaser"
+
 # Print confirmation
-echo "$(date '+%Y-%m-%d %H:%M:%S') - ${ENV_NAME} environment activated"
+echo "\$(date '+%Y-%m-%d %H:%M:%S') - ${ENV_NAME} environment activated"
 echo "Python version: \$(python --version)"
 echo "Using python at: \$(which python)"
 echo "OpenNMT tools available at: \$(which onmt_build_vocab 2>/dev/null || echo 'Not found')"
+echo "Moses scripts available at: ${TOOLS_PATH}/mosesdecoder/scripts"
 EOL
 
 chmod +x "$ACTIVATE_SCRIPT"
@@ -138,6 +161,7 @@ source ~/envs/activate_${ENV_NAME}.sh
 - sentencepiece
 - subword-nmt
 - sacrebleu
+- Moses SMT tools (tokenizer, truecaser, cleaning scripts)
 
 ## Verification
 After activation, you can verify the setup:
@@ -149,10 +173,15 @@ which onmt_translate
 
 # Check Python packages
 pip list | grep -E "OpenNMT-py|torch|nltk|sentencepiece|sacrebleu"
+
+# Check Moses scripts availability
+ls ${TOOLS_PATH}/mosesdecoder/scripts/tokenizer/tokenizer.perl
+ls ${TOOLS_PATH}/mosesdecoder/scripts/recaser/truecase.perl
 \`\`\`
 
 ## Notes
 - The environment adds OpenNMT command-line tools to your PATH
+- Moses scripts are available in PATH
 - NLTK data is installed in ~/nltk_data
 EOL
 
