@@ -71,3 +71,34 @@ source ~/envs/activate_acholi_mt_env.sh
 ```
 deactivate
 ```
+__________________________________________________
+Some more files:
+
+### create_mt_env.sh
+
+This script will:
+- Create virtual environment on the server (UPPMAX) (see details above)
+
+### preprocess_onmt.py:
+
+This script will:
+
+- Create a .yaml config-file for pretraining operations
+- Encode data using BPE using subword-nmt
+- Create a vocabulary for use with OpenNMT
+
+### analyze_line_endings.py:
+
+This script will:
+- Compare line endings of two text files and analyze punctuation patterns.
+- Return statistics about matching and mismatching line endings.
+
+### train_baseline_model.sh
+
+This script will:
+- Load a batch job on the server in order to train a baseline model
+
+### preprocess.py
+
+This script will:
+- Preprocess/Tokenize using nltk
