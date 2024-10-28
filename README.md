@@ -21,16 +21,19 @@ deactivate
 ### Step 2: Extract data for baseline model
 
 Run extract_data.py:
+```
 python extract_data.py
-
+```
 ### Step 3: Tokenize and clean the data
 Run preprocess.sh:
+```
 bash preprocess.sh
-
+```
 ### Step 4: Create vocabulary, Encode data using BPE, create .yaml-file with data configuration
 
 Run preprocess_onmt.py:
 Example:
+```
 python preprocess_onmt.py \
   --train-src processed_data_moses/salt.train.tk.lc.clean.ach \
   --train-tgt processed_data_moses/salt.train.tk.lc.clean.eng \
@@ -46,17 +49,19 @@ python preprocess_onmt.py \
   --tgt-min-frequency 2 \
   --src-bpe-operations 7000 \
   --tgt-bpe-operations 7000
-
+```
 ### Step 5: *Manually* create the file train_config.yaml
 Use the newly created file *data_config.yaml* as a base. Set parameters. See *train_config.yaml.example*...
 
 ### Step 6:Submit job to Snowy (Uppmax cluster):
+```
 sbatch train_baseline_model.sh
+```
 ________________________________________________________________________________________________________
 
 # Scripts for data extraction and preprocessing
 
-### 1. extract_data.py
+### extract_data.py
 
 This script extracts parallel data from the Sunbird/salt dataset on Hugging Face.
 
@@ -67,7 +72,7 @@ python extract_data.py
 
 This script will extract raw Acholi-English parallel data
 
-### 2. preprocess.sh
+### preprocess.sh
 
 This bash script preprocesses the extracted data for use with Moses SMT.
 
@@ -106,7 +111,7 @@ This script will:
    ```
 ______________________________________________________________________________________________
 
-Info about files:
+Some more files:
 
 ### create_mt_env.sh
 
