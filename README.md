@@ -27,7 +27,7 @@ python extract_data.py
 Run preprocess.sh:
 bash preprocess.sh
 
-### Step 4: Create voabulary, Encode data using BPE, create .yaml-file with data configuration
+### Step 4: Create vocabulary, Encode data using BPE, create .yaml-file with data configuration
 
 Run preprocess_onmt.py:
 Example:
