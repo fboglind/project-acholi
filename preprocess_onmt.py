@@ -1,7 +1,7 @@
 """
 This script does the following:
     Creates a .yaml config-file for pretraining operations
-    Encodes data using BPE using subword-nmt
+    Encodes data using Byte Pair Encoding (subword-nmt)
     Creates a vocabulary for use with OpenNMT
 """
 import argparse
