@@ -1,3 +1,9 @@
+"""
+This script does the following:
+    Creates a .yaml config-file for pretraining operations
+    Encodes data using BPE using subword-nmt
+    Creates a vocabulary for use with OpenNMT
+"""
 import argparse
 import yaml
 import logging
@@ -13,9 +19,9 @@ class ONMTPreprocessor:
         self,
         src_lang: str,
         tgt_lang: str,
-        vocab_size: int = 8000,
-        min_frequency: int = 2,
-        bpe_operations: int = 32000
+        vocab_size: int = 8000, # the model will consider the most frequent 8000 subword units from the BPE-encoded data. Reduce if overfitting..
+        min_frequency: int = 1, # tokens appearing at least once are included. Reduces out-of-vocabulary issues, resulting in <unk>.
+        bpe_operations: int = 8000 # a large number of BPE operations may overfit to training data.
     ):
         self.src_lang = src_lang
         self.tgt_lang = tgt_lang
@@ -225,15 +231,17 @@ def main():
 if __name__ == "__main__":
     main()
 
+# Command used for baseline:
+
 # python preprocess_onmt.py \
-#   --train-src data/salt.test.ach \
-#   --train-tgt data/salt.test.en \
-#   --dev-src data/salt.dev.ach \
-#   --dev-tgt data/salt.dev.en \
+#   --train-src processed_data_moses/salt.train.tk.lc.clean.ach \
+#   --train-tgt processed_data_moses/salt.train.tk.lc.clean.eng \
+#   --dev-src processed_data_moses/salt.dev.tk.lc.ach \
+#   --dev-tgt processed_data_moses/salt.dev.tk.lc.eng \
 #   --src-lang ach \
 #   --tgt-lang en \
 #   --output-dir onmt_data \
 #   --save-prefix data \
 #   --vocab-size 8000 \
-#   --min-frequency 2 \
-#   --bpe-operations 32000
+#   --min-frequency 1 \
+#   --bpe-operations 8000

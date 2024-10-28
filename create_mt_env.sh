@@ -103,6 +103,9 @@ check_status "sentencepiece installation"
 pip install "sacrebleu>=2.3"
 check_status "sacrebleu installation"
 
+pip install "numpy<2.0" #downgraded because of conflicts during training
+check_status "numpy installation"
+
 # Download NLTK data to user's home directory
 log_message "Downloading NLTK data..."
 python -m nltk.downloader -d ~/nltk_data punkt
@@ -162,6 +165,7 @@ source ~/envs/activate_${ENV_NAME}.sh
 - subword-nmt
 - sacrebleu
 - Moses SMT tools (tokenizer, truecaser, cleaning scripts)
+- numpy < version 2.0
 
 ## Verification
 After activation, you can verify the setup:
