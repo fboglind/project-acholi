@@ -1,3 +1,4 @@
+"""Script for encoding test data"""
 from subword_nmt.apply_bpe import BPE
 
 # Create BPE processor using existing codes
