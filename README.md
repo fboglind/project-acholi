@@ -1,6 +1,10 @@
 # project-acholi-mt24
 This repository hosts code for a low-resource language machine translation project involving the Acholi language. The project is a part of the course Machine Translation (5LN711) at Uppsala University, Fall 2024.
 
+To clone the depository use:
+```
+git clone https://github.com/project-acholi-mt24/project-acholi-mt24.git
+```
 # Training the baseline model
 ### Step 1: Create virtual environment
 
