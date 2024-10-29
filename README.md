@@ -5,10 +5,12 @@ To clone the depository use:
 ```
 git clone https://github.com/project-acholi-mt24/project-acholi-mt24.git
 ```
+See shared folder on UPPMAX for data files used for baseline training:  /proj/uppmax2024-2-13/private/acholi_mt24/project-acholi-mt24
+
 # Training the baseline model
 ### Step 1: Create virtual environment
 
-1. In the appropriate directory (On UPPMAX this is the shared project folder: /proj/uppmax2024-2-13/private/acholi_mt24/project-acholi-mt24),
+1. In the appropriate directory (On UPPMAX ),
 run the script for creating a virtual environment:
 ```
 bash create_mt_env.sh
