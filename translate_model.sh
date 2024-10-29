@@ -6,7 +6,7 @@
 #SBATCH -J onmt_translate_acholi
 #SBATCH --gres=gpu:1
 #SBATCH --mail-type=BEGIN,END,FAIL
-#SBATCH --mail-user=fredrik.boglind@gmail.com
+#SBATCH --mail-user=your*@email.com
 
 # Set CUDA visible devices
 CUDA_VISIBLE_DEVICES=0

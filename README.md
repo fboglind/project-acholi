@@ -59,12 +59,12 @@ python preprocess_onmt.py \
 ### Step 5: *Manually* create the file train_config.yaml
 Use the newly created file *data_config.yaml* as a base. Set parameters. See *train_config.yaml.example*...
 
-### Step 6:Submit job to Snowy (Uppmax cluster):
+### Step 6: Submit job to Snowy (Uppmax cluster):
 ```
 sbatch train_baseline_model.sh
 ```
 
-### Step 7: Translate using the newly trained model
+### Step 7: Translate using the newly trained model [WILL BE UPDATED]
 Use the the newly trained model to translate the data in the test set
 ```
 sbatch translate_model.sh
@@ -77,7 +77,7 @@ These parameters can be useful (for the *onmt_translate* command IN the translat
 - Add -fp32 if you experience any precision issues
 ________________________________________________________________________________________________________
 
-# Scripts for data extraction and preprocessing
+# Scripts for data extraction and tokenization/initial preprocessing
 
 ### extract_data.py
 
