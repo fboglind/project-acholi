@@ -15,9 +15,19 @@ from subword_nmt.apply_bpe import BPE
 
 
 class ONMTPreprocessor:
+    # def __init__(
+    #     self,
+    #     src_lang: str,
+    #     tgt_lang: str,                     #RUN 2:
+    #     src_vocab_size: int = 5000,        # Reduced for Acholi
+    #     tgt_vocab_size: int = 6000,        # Slightly higher for English
+    #     src_min_frequency: int = 3,        # Increased to reduce noise
+    #     tgt_min_frequency: int = 2,        # Keep as is for English
+    #     src_bpe_operations: int = 5000,    # Match vocab size
+    #     tgt_bpe_operations: int = 6000     # Match vocab size
     def __init__(
         self,
-        src_lang: str,
+        src_lang: str,                #RUN 1
         tgt_lang: str,
         src_vocab_size: int = 7000,
         tgt_vocab_size: int = 7000,    
@@ -268,20 +278,7 @@ if __name__ == "__main__":
 
 # Command used for baseline:
 
-# python preprocess_onmt.py \
-#   --train-src processed_data_moses/salt.train.tk.lc.clean.ach \
-#   --train-tgt processed_data_moses/salt.train.tk.lc.clean.eng \
-#   --dev-src processed_data_moses/salt.dev.tk.lc.ach \
-#   --dev-tgt processed_data_moses/salt.dev.tk.lc.eng \
-#   --src-lang ach \
-#   --tgt-lang en \
-#   --output-dir onmt_data \
-#   --save-prefix data \
-#   --vocab-size 8000 \
-#   --min-frequency 1 \
-#   --bpe-operations 8000
-
-
+## Run 1
 # python preprocess_onmt.py \
 #   --train-src processed_data_moses/salt.train.tk.lc.clean.ach \
 #   --train-tgt processed_data_moses/salt.train.tk.lc.clean.eng \
@@ -293,7 +290,24 @@ if __name__ == "__main__":
 #   --save-prefix data \
 #   --src-vocab-size 7000 \
 #   --tgt-vocab-size 7000 \
-#   --src-min-frequency 2 \
-#   --tgt-min-frequency 2 \
+#   --src-min-frequency 1 \
+#   --tgt-min-frequency 1 \
 #   --src-bpe-operations 7000 \
 #   --tgt-bpe-operations 7000
+
+## Run 2
+# python preprocess_onmt.py \
+#   --train-src processed_data_moses/salt.train.tk.lc.clean.ach \
+#   --train-tgt processed_data_moses/salt.train.tk.lc.clean.eng \
+#   --dev-src processed_data_moses/salt.dev.tk.lc.ach \
+#   --dev-tgt processed_data_moses/salt.dev.tk.lc.eng \
+#   --src-lang ach \
+#   --tgt-lang en \
+#   --output-dir onmt_data \
+#   --save-prefix data \
+#   --src-vocab-size 5000 \
+#   --tgt-vocab-size 6000 \
+#   --src-min-frequency 3 \
+#   --tgt-min-frequency 2 \
+#   --src-bpe-operations 5000 \
+#   --tgt-bpe-operations 6000

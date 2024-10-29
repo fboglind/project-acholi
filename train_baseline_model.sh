@@ -6,7 +6,7 @@
 #SBATCH -J onmt_acholi_en2
 #SBATCH --gres=gpu:1
 #SBATCH --mail-type=BEGIN,END,FAIL
-#SBATCH --mail-user=YOUR@email.address....com
+#SBATCH --mail-user=my_email*@gmail.com
 
 ## To run: sbatch train_baseline_model.sh (NOT bash!)
 
