@@ -57,6 +57,18 @@ Use the newly created file *data_config.yaml* as a base. Set parameters. See *tr
 ```
 sbatch train_baseline_model.sh
 ```
+
+### Step 7: Translate using the newly trained model
+Use the the newly trained model to translate the data in the test set
+```
+sbatch translate_model.sh
+```
+These parameters can be useful (for the *onmt_translate* command *IN* the *translate_model.sh*-file):
+  batch_size: Number of sentences to translate at once
+  beam_size: Size of beam search (larger = potentially better but slower)
+  replace_unk: Replaces unknown tokens with source tokens
+  Add -n_best 3 for multiple translations per sentence
+  Add -fp32 if you experience any precision issues
 ________________________________________________________________________________________________________
 
 # Scripts for data extraction and preprocessing
