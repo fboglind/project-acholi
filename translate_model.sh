@@ -6,7 +6,7 @@
 #SBATCH -J onmt_translate_acholi
 #SBATCH --gres=gpu:1
 #SBATCH --mail-type=BEGIN,END,FAIL
-#SBATCH --mail-user=my_email*@gmail.com
+#SBATCH --mail-user=fredrik.boglind@gmail.com
 
 # Set CUDA visible devices
 CUDA_VISIBLE_DEVICES=0
@@ -47,6 +47,13 @@ onmt_translate \
     -beam_size 5 \
     -replace_unk \
     2>&1 | tee $LOG_DIR/translation.log
+
+## Some parameters that can be adjusted:
+## batch_size: Number of sentences to translate at once
+## beam_size: Size of beam search (larger = potentially better but slower)
+## replace_unk: Replaces unknown tokens with source tokens
+## Add -n_best 3 for multiple translations per sentence
+## Add -fp32 if you experience any precision issues
 
 # If you have reference translations, calculate BLEU score
 if [ -f "$GOLD_FILE" ]; then

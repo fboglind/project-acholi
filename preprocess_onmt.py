@@ -25,17 +25,28 @@ class ONMTPreprocessor:
     #     tgt_min_frequency: int = 2,        # Keep as is for English
     #     src_bpe_operations: int = 5000,    # Match vocab size
     #     tgt_bpe_operations: int = 6000     # Match vocab size
+    # def __init__(
+    #     self,
+    #     src_lang: str,                #RUN 1
+    #     tgt_lang: str,
+    #     src_vocab_size: int = 7000,
+    #     tgt_vocab_size: int = 7000,    
+    #     src_min_frequency: int = 2,        
+    #     tgt_min_frequency: int = 2, 
+    #     src_bpe_operations: int = 7000,    
+    #     tgt_bpe_operations: int = 7000     # larger number of BPE operations may overfit to training data.
+    # ):
+
     def __init__(
         self,
         src_lang: str,                #RUN 1
         tgt_lang: str,
-        src_vocab_size: int = 7000,
-        tgt_vocab_size: int = 7000,    
+        src_vocab_size: int = 6000,
+        tgt_vocab_size: int = 6000,    
         src_min_frequency: int = 2,        
         tgt_min_frequency: int = 2, 
-        src_bpe_operations: int = 7000,    
-        tgt_bpe_operations: int = 7000     # larger number of BPE operations may overfit to training data.
-
+        src_bpe_operations: int = 6000,    
+        tgt_bpe_operations: int = 6000     # larger number of BPE operations may overfit to training data.
     ):
         self.src_lang = src_lang
         self.tgt_lang = tgt_lang
@@ -310,4 +321,21 @@ if __name__ == "__main__":
 #   --src-min-frequency 3 \
 #   --tgt-min-frequency 2 \
 #   --src-bpe-operations 5000 \
+#   --tgt-bpe-operations 6000
+
+# Run 3
+# python preprocess_onmt.py \
+#   --train-src processed_data_moses/salt.train.tk.lc.clean.ach \
+#   --train-tgt processed_data_moses/salt.train.tk.lc.clean.eng \
+#   --dev-src processed_data_moses/salt.dev.tk.lc.ach \
+#   --dev-tgt processed_data_moses/salt.dev.tk.lc.eng \
+#   --src-lang ach \
+#   --tgt-lang en \
+#   --output-dir onmt_data \
+#   --save-prefix data \
+#   --src-vocab-size 6000 \
+#   --tgt-vocab-size 6000 \
+#   --src-min-frequency 2 \
+#   --tgt-min-frequency 2 \
+#   --src-bpe-operations 6000 \
 #   --tgt-bpe-operations 6000
