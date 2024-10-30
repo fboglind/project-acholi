@@ -20,7 +20,7 @@ bash create_mt_env.sh
 ```
 source ~/envs/activate_acholi_mt_env.sh
 ```
-3. When done, deactivate environment:
+3. To deactivate the environment:
 ```
 deactivate
 ```
@@ -129,7 +129,7 @@ This script will:
    ```
 ______________________________________________________________________________________________
 
-Some more files:
+# Some more scripts:
 
 ### create_mt_env.sh
 
@@ -159,3 +159,10 @@ This script will:
 
 This script will:
 - Preprocess/Tokenize using nltk
+
+# Additional files
+
+### train_config.yaml.example
+An example .yaml file, used for configuring training parameters. These parameters were/can be used during baseline training
+- Use this for creating a the file *train_config.yaml*. For setting the data parameters, check *data_config.yaml* that was created in preprocessing.
+
