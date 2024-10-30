@@ -63,8 +63,12 @@ Use the newly created file *data_config.yaml* as a base. Set parameters. See *tr
 ```
 sbatch train_baseline_model.sh
 ```
-
-### Step 7: Translate using the newly trained model [WILL BE UPDATED]
+### Step 7 Preprocess test data
+Run script to preprocess the test set using the same encoding as for the test and dev set
+```
+python preprocess_test_data.py
+```
+### Step 8: Translate using the newly trained model [WILL BE UPDATED]
 Use the the newly trained model to translate the data in the test set
 ```
 sbatch translate_model.sh
