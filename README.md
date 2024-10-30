@@ -10,8 +10,9 @@ See shared folder on UPPMAX for data files used for baseline training:  /proj/up
 # Training the baseline model
 ### Step 1: Create virtual environment
 
-1. In the appropriate directory (On UPPMAX ),
-run the script for creating a virtual environment:
+1. In an appropriate directory (On UPPMAX),
+- Clone this repository
+- Run the script for creating a virtual environment:
 ```
 bash create_mt_env.sh
 ```
