@@ -169,7 +169,7 @@ This script will:
 
 This script will:
 - Analyze vocabulary and token frequencies in (parallel) text files.
-- Produce a chart showing token frequencies at different threshold
+- Produce a chart showing token frequencies at different thresholds
 - Print basic stats to terminal
 
 # Additional files
