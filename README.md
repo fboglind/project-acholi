@@ -144,12 +144,6 @@ This script will:
 - Encode data using BPE using subword-nmt
 - Create a vocabulary for use with OpenNMT
 
-### analyze_line_endings.py:
-
-This script will:
-- Compare line endings of two text files and analyze punctuation patterns.
-- Return statistics about matching and mismatching line endings.
-
 ### train_baseline_model.sh
 
 This script will:
@@ -159,6 +153,19 @@ This script will:
 
 This script will:
 - Preprocess/Tokenize using nltk
+
+### tools\analyze_line_endings.py:
+
+This script will:
+- Compare line endings of two text files and analyze punctuation patterns.
+- Return statistics about matching and mismatching line endings.
+
+### tools\analyze_vocabulary.py
+
+This script will:
+- Analyze vocabulary and token frequencies in (parallel) text files.
+- Produce a chart showing token frequencies at different threshold
+- Print basic stats to terminal
 
 # Additional files
 
