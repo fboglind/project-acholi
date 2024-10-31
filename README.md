@@ -61,6 +61,7 @@ python preprocess_onmt.py \
 Use the newly created file *data_config.yaml* as a base. Set parameters. See *train_config.yaml.example*...
 
 ### Step 6: Submit job to Snowy (Uppmax cluster):
+If needed update DATA_DIR with the the full path to data directory
 ```
 sbatch train_baseline_model.sh
 ```
