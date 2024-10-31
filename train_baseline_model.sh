@@ -17,9 +17,9 @@
 # Set CUDA visible devices
 CUDA_VISIBLE_DEVICES=0
 
-# Directory settings
-DATA_DIR=/proj/uppmax2024-2-13/private/acholi_mt24/project-acholi-mt24/onmt_data
-SAVE_DIR=/proj/uppmax2024-2-13/private/acholi_mt24/project-acholi-mt24/onmt_data/onmt_model
+# Directory settings 
+DATA_DIR=/onmt_data # ENTER the full path to your data catalogue (onmt_data/)here if needed
+SAVE_DIR= $DATA_DIR/onmt_model # ENTER  (onmt_data/) DIRECTORY HERE
 mkdir -p $SAVE_DIR
 
 # Configuration file for training
