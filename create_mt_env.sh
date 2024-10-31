@@ -106,6 +106,9 @@ check_status "sacrebleu installation"
 pip install "numpy<2.0" #downgraded because of conflicts during training
 check_status "numpy installation"
 
+pip install "unbabel-comet"
+check_status "comet installation"
+
 # Download NLTK data to user's home directory
 log_message "Downloading NLTK data..."
 python -m nltk.downloader -d ~/nltk_data punkt

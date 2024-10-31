@@ -10,8 +10,9 @@ See shared folder on UPPMAX for data files used for baseline training:  /proj/up
 # Training the baseline model
 ### Step 1: Create virtual environment
 
-1. In the appropriate directory (On UPPMAX ),
-run the script for creating a virtual environment:
+1. In an appropriate directory (On UPPMAX),
+- Clone this repository
+- Run the script for creating a virtual environment:
 ```
 bash create_mt_env.sh
 ```
@@ -20,7 +21,7 @@ bash create_mt_env.sh
 ```
 source ~/envs/activate_acholi_mt_env.sh
 ```
-3. When done, deactivate environment:
+3. To deactivate the environment:
 ```
 deactivate
 ```
@@ -63,8 +64,12 @@ Use the newly created file *data_config.yaml* as a base. Set parameters. See *tr
 ```
 sbatch train_baseline_model.sh
 ```
-
-### Step 7: Translate using the newly trained model [WILL BE UPDATED]
+### Step 7 Preprocess test data
+Run script to preprocess the test set using the same encoding as for the test and dev set
+```
+python preprocess_test_data.py
+```
+### Step 8: Translate using the newly trained model [WILL BE UPDATED]
 Use the the newly trained model to translate the data in the test set
 ```
 sbatch translate_model.sh
@@ -129,7 +134,7 @@ This script will:
    ```
 ______________________________________________________________________________________________
 
-Some more files:
+# Some more scripts:
 
 ### create_mt_env.sh
 
@@ -144,12 +149,6 @@ This script will:
 - Encode data using BPE using subword-nmt
 - Create a vocabulary for use with OpenNMT
 
-### analyze_line_endings.py:
-
-This script will:
-- Compare line endings of two text files and analyze punctuation patterns.
-- Return statistics about matching and mismatching line endings.
-
 ### train_baseline_model.sh
 
 This script will:
@@ -159,3 +158,23 @@ This script will:
 
 This script will:
 - Preprocess/Tokenize using nltk
+
+### tools\analyze_line_endings.py:
+
+This script will:
+- Compare line endings of two text files and analyze punctuation patterns.
+- Return statistics about matching and mismatching line endings.
+
+### tools\analyze_vocabulary.py
+
+This script will:
+- Analyze vocabulary and token frequencies in (parallel) text files.
+- Produce a chart showing token frequencies at different thresholds
+- Print basic stats to terminal
+
+# Additional files
+
+### train_config.yaml.example
+An example .yaml file, used for configuring training parameters. These parameters were/can be used during baseline training
+- Use this for creating the file *train_config.yaml*.
+- Make sure to use the data parameters in *data_config.yaml* (created during preprocessing) in your train_config.yaml.
