@@ -58,7 +58,7 @@ python preprocess_onmt.py \
   --tgt-bpe-operations 7000
 ```
 ### Step 5: *Manually* create the file train_config.yaml
-Use the newly created file *data_config.yaml* as a base. Set parameters. See *train_config.yaml.example*...
+Use the newly created file *data_config.yaml* as a base. Set parameters. See example-file: *train_config.yaml.example*.
 
 ### Step 6: Submit job to Snowy (Uppmax cluster):
 If needed update DATA_DIR with the the full path to data directory
