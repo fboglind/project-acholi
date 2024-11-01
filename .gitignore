@@ -2,3 +2,4 @@ devfiles/
 processed_data_moses/
 onmt_data/
 train_config.yaml
+data/
