@@ -94,16 +94,6 @@ python batch_translate.py \
     --beam-sizes 3 5 7 \
     --batch-sizes 16 32 64
 
-
-~~```
-sbatch translate_model.sh
-```
-These parameters can be useful (for the *onmt_translate* command IN the translate_model.sh-file):
-- batch_size: Number of sentences to translate at once
-- beam_size: Size of beam search (larger = potentially better but slower)
-- replace_unk: Replaces unknown tokens with source tokens
-- Add -n_best 3 for multiple translations per sentence
-- Add -fp32 if you experience any precision issues~~
 ________________________________________________________________________________________________________
 
 # Scripts for data extraction and tokenization/initial preprocessing
