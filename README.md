@@ -183,11 +183,6 @@ This script will:
 This script will:
 - Load a batch job on the server in order to train a baseline model
 
-### preprocess.py
-
-This script will:
-- Preprocess/Tokenize using nltk
-
 ### tools\analyze_line_endings.py:
 
 This script will:
