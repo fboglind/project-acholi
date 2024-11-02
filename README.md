@@ -83,7 +83,12 @@ This script will:
 - Test different beam sizes and batch sizes
 - Calculate BLEU and chrF scores for each configuration
 - Save all translations and results
-- Identify the best performing configuration
+- Identify the best performing 
+
+The script will create a timestamped directory with:
+- All translations for each configuration
+- A CSV file with all results
+- Logs showing the best configuration
 
 Example:
 python batch_translate.py \
