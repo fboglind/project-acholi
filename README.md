@@ -101,18 +101,6 @@ python batch_translate.py \
 
 # Translation Results: Baseline Training (visualized)
 
-## BLEU Scores Across Training Steps
-
-### Mermaid Chart
-```mermaid
-%%{init: {'theme': 'neutral', 'themeVariables': { 'fontSize': '12px'}}}%%
-xychart-beta
-    title "BLEU Scores vs Training Steps"
-    x-axis [2000, 4000, 6000, 6500] "Steps"
-    y-axis "BLEU Score" 6 --> 8
-    line [7.54, 6.89, 7.17, 7.07] "Beam 7"
-    line [7.46, 6.64, 7.09, 6.97] "Beam 5"
-    line [7.26, 6.23, 6.81, 6.91] "Beam 3"
 
 ________________________________________________________________________________________________________
 
