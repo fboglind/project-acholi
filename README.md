@@ -99,7 +99,7 @@ python batch_translate.py \
     --beam-sizes 3 5 7 \
     --batch-sizes 16 32 64
 
-## Translation Results: Baseline Training (visualized):
+## Translation Results: Baseline Training:
 ![Translation Results](results-svg.svg)
 
 | Checkpoint | Best BLEU | Best chrF | Optimal Beam Size |
