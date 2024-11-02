@@ -83,7 +83,7 @@ This script will:
 - Test different beam sizes and batch sizes
 - Calculate BLEU and chrF scores for each configuration
 - Save all translations and results
-- Identify the best performing 
+- Identify the best performing configuration
 
 The script will create a timestamped directory with:
 - All translations for each configuration
