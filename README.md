@@ -72,15 +72,43 @@ python preprocess_test_data.py
 ```
 ### Step 8: Translate using the newly trained model [WILL BE UPDATED]
 Use the the newly trained model to translate the data in the test set
+
 ```
-sbatch translate_model.sh
+sbatch batch_translate.py
 ```
-These parameters can be useful (for the *onmt_translate* command IN the translate_model.sh-file):
-- batch_size: Number of sentences to translate at once
-- beam_size: Size of beam search (larger = potentially better but slower)
-- replace_unk: Replaces unknown tokens with source tokens
-- Add -n_best 3 for multiple translations per sentence
-- Add -fp32 if you experience any precision issues
+
+This script will:
+
+- Try all available checkpoints
+- Test different beam sizes and batch sizes
+- Calculate BLEU and chrF scores for each configuration
+- Save all translations and results
+- Identify the best performing 
+
+The script will create a timestamped directory with:
+- All translations for each configuration
+- A CSV file with all results
+- Logs showing the best configuration
+
+Example:
+python batch_translate.py \
+    --project-dir /[name of your PROJECT DIRECTORY] \
+    --test-src processed_data_moses/salt.test.tk.lc.ach \
+    --test-ref processed_data_moses/salt.test.tk.lc.eng \
+    --bpe-codes onmt_data/data.ach.codes \
+    --beam-sizes 3 5 7 \
+    --batch-sizes 16 32 64
+
+## Baseline Training:
+![Translation Results](results-svg.svg)
+
+| Checkpoint | Best BLEU | Best chrF | Optimal Beam Size |
+|------------|-----------|-----------|-------------------|
+| 2000 steps | 7.54      | 31.70     | 7                |
+| 4000 steps | 6.89      | 32.94     | 7                |
+| 6000 steps | 7.17      | 32.23     | 7                |
+| 6500 steps | 7.07      | 31.44     | 7                |
+
 ________________________________________________________________________________________________________
 
 # Scripts for data extraction and tokenization/initial preprocessing
