@@ -72,7 +72,30 @@ python preprocess_test_data.py
 ```
 ### Step 8: Translate using the newly trained model [WILL BE UPDATED]
 Use the the newly trained model to translate the data in the test set
+
 ```
+sbatch batch_translate.py
+```
+
+This script will:
+
+- Try all available checkpoints
+- Test different beam sizes and batch sizes
+- Calculate BLEU and chrF scores for each configuration
+- Save all translations and results
+- Identify the best performing configuration
+
+Example:
+python batch_translate.py \
+    --project-dir /[name of your PROJECT DIRECTORY] \
+    --test-src processed_data_moses/salt.test.tk.lc.ach \
+    --test-ref processed_data_moses/salt.test.tk.lc.eng \
+    --bpe-codes onmt_data/data.ach.codes \
+    --beam-sizes 3 5 7 \
+    --batch-sizes 16 32 64
+
+
+~~```
 sbatch translate_model.sh
 ```
 These parameters can be useful (for the *onmt_translate* command IN the translate_model.sh-file):
@@ -80,7 +103,7 @@ These parameters can be useful (for the *onmt_translate* command IN the translat
 - beam_size: Size of beam search (larger = potentially better but slower)
 - replace_unk: Replaces unknown tokens with source tokens
 - Add -n_best 3 for multiple translations per sentence
-- Add -fp32 if you experience any precision issues
+- Add -fp32 if you experience any precision issues~~
 ________________________________________________________________________________________________________
 
 # Scripts for data extraction and tokenization/initial preprocessing
