@@ -196,6 +196,10 @@ This script will:
 - Produce a chart showing token frequencies at different thresholds
 - Print basic stats to terminal
 
+### tools\analyze_overlap.py
+This script will:
+- Analyse overlap between two parallel langauge data files
+
 # Additional files
 
 ### train_config.yaml.example
