@@ -181,7 +181,29 @@ This script will:
 ### train_baseline_model.sh
 
 This script will:
-- Load a batch job on the server in order to train a baseline model  
+- Load a batch job on the server in order to train a baseline model
+
+### evaluate.py
+
+This script will:
+
+Evaluate the output translations of a machine translation model using these metrics:
+- BLEU
+- METEOR
+- COMET
+[Note: argparse is yet to be implemented]
+
+### bootstrap_evaluation.py
+
+This script will:
+- Perform statistical significance testing for comparing two machine translation models using paired bootstrap resampling. It integrates with OpenNMT-py and uses the eval class in evaluation.py for evaluation.
+- Provide detailed statistics:
+    - Mean scores and standard deviations
+    - Win counts and ratios
+    - Approximate p-values
+    - Confidence intervals
+  
+[Note: argparse is yet to be implemented]
 
 ### tools\analyze_line_endings.py:
 
