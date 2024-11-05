@@ -1,4 +1,4 @@
-"""bootstrap_evaluation.py contains code for performing bootstrap evaluation."""
+"""bootstrap_evaluation.py contains code for performing bootstrap evaluation of machine translation output"""
 import numpy as np
 import statistics
 import time
@@ -8,6 +8,7 @@ import os
 import shutil
 from pathlib import Path
 import tempfile
+from evaluation import eval
 
 class OpenNMTBootstrapEvaluator:
     def __init__(self, 
@@ -221,10 +222,10 @@ class OpenNMTBootstrapEvaluator:
 
 # Enter correct paths
 evaluator = OpenNMTBootstrapEvaluator(
-    src_file="test.src",
-    baseline_model_path="baseline_model",
+    src_file="processed_data_moses/salt.test.tk.lc.ach",
+    baseline_model_path="onmt_data/onmt_model",
     experimental_model_path="experimental_model",
-    ref_file="test.ref",
+    ref_file="processed_data_moses/salt.test.tk.lc.eng",
     eval_class=eval,  
     n_iterations=1000,
     batch_size=32,
