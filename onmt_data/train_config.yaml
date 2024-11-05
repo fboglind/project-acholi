@@ -1,0 +1,61 @@
+# For training: onmt_train -config onmt_data/train_config.yaml
+# If there are problems relating to numpy, try downgrading: pip install "numpy<2.0"
+
+# Data settings
+data:
+  corpus_1:
+    path_src: onmt_data/train.bpe.ach
+    path_tgt: onmt_data/train.bpe.en
+  valid:
+    path_src: onmt_data/dev.bpe.ach
+    path_tgt: onmt_data/dev.bpe.en
+overwrite: false
+save_data: onmt_data/data
+share_vocab: false
+src_vocab: onmt_data/data.vocab.ach
+src_vocab_size: 6000
+src_words_min_frequency: 2
+tgt_vocab: onmt_data/data.vocab.en
+tgt_vocab_size: 6000
+tgt_words_min_frequency: 2
+transforms:
+- filtertoolong
+
+# Model parameters
+encoder_type: 'transformer'
+decoder_type: 'transformer'
+enc_layers: 2
+dec_layers: 2
+heads: 4
+rnn_size: 500
+word_vec_size: 500
+d_model: 500  # explicitly sets the model dimension
+transformer_ff: 2048
+dropout: 0.3
+word_dropout: 0.3
+share_embeddings: false # true if share_vocab
+share_decoder_embeddings: false
+max_generator_batches: 32
+
+# Optimization parameters
+optim: 'adam'
+learning_rate: 0.0001
+warmup_steps: 2000 # Reduced - small dataset
+label_smoothing: 0.1
+optim_adam_beta1: 0.9
+optim_adam_beta2: 0.998
+
+
+# If memory problems, try:
+batch_size: 512  # reduce from 1024
+accum_count: [4]  # increase from 2 to maintain effective batch size
+train_steps: 50000 # 600 steps = 10 epochs
+valid_steps: 500 # reduced from 1000 - small dataset
+save_checkpoint_steps: 2000
+early_stopping: 10 # Will stop if no improvement for 10 validations
+
+# Logging and Validation
+report_every: 100
+valid_metrics: ['BLEU']
+report_bleu: true
+replace_unk: true
