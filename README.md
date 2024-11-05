@@ -153,7 +153,7 @@ This script will:
 ### train_baseline_model.sh
 
 This script will:
-- Load a batch job on the server in order to train a baseline model
+- Load a batch job on the server in order to train a baseline model  
 
 ### preprocess.py
 
