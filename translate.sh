@@ -12,7 +12,7 @@
 CUDA_VISIBLE_DEVICES=0
 
 # Directories
-PROJECT_DIR=/proj/uppmax2024-2-13/private/acholi_mt24/project-acholi-mt24
+PROJECT_DIR=/home/oslj9489/private/project-acholi-mt24
 MODEL_PATH=$PROJECT_DIR/onmt_data/onmt_model/model_step_6500.pt  # your latest checkpoint
 TEST_SRC=$PROJECT_DIR/onmt_data/test.bpe.ach
 OUTPUT_DIR=$PROJECT_DIR/onmt_data/test_translations

@@ -72,15 +72,43 @@ python preprocess_test_data.py
 ```
 ### Step 8: Translate using the newly trained model [WILL BE UPDATED]
 Use the the newly trained model to translate the data in the test set
+
 ```
-sbatch translate_model.sh
+sbatch batch_translate.py
 ```
-These parameters can be useful (for the *onmt_translate* command IN the translate_model.sh-file):
-- batch_size: Number of sentences to translate at once
-- beam_size: Size of beam search (larger = potentially better but slower)
-- replace_unk: Replaces unknown tokens with source tokens
-- Add -n_best 3 for multiple translations per sentence
-- Add -fp32 if you experience any precision issues
+
+This script will:
+
+- Try all available checkpoints
+- Test different beam sizes and batch sizes
+- Calculate BLEU and chrF scores for each configuration
+- Save all translations and results
+- Identify the best performing configuration
+
+The script will create a timestamped directory with:
+- All translations for each configuration
+- A CSV file with all results
+- Logs showing the best configuration
+
+Example:
+python batch_translate.py \
+    --project-dir /[name of your PROJECT DIRECTORY] \
+    --test-src processed_data_moses/salt.test.tk.lc.ach \
+    --test-ref processed_data_moses/salt.test.tk.lc.eng \
+    --bpe-codes onmt_data/data.ach.codes \
+    --beam-sizes 3 5 7 \
+    --batch-sizes 16 32 64
+
+## Baseline Training:
+![Translation Results](images/baseline_translation.svg)
+
+| Checkpoint | Best BLEU | Best chrF | Optimal Beam Size |
+|------------|-----------|-----------|-------------------|
+| 2000 steps | 7.54      | 31.70     | 7                |
+| 4000 steps | 6.89      | 32.94     | 7                |
+| 6000 steps | 7.17      | 32.23     | 7                |
+| 6500 steps | 7.07      | 31.44     | 7                |
+
 ________________________________________________________________________________________________________
 
 # Scripts for data extraction and tokenization/initial preprocessing
@@ -155,10 +183,26 @@ This script will:
 This script will:
 - Load a batch job on the server in order to train a baseline model
 
-### preprocess.py
+### evaluation.py
 
 This script will:
-- Preprocess/Tokenize using nltk
+
+Evaluate the output translations of a machine translation model using these metrics:
+- BLEU
+- METEOR
+- COMET
+
+### bootstrap_evaluation.py
+
+This script will:
+- Perform statistical significance testing for comparing two machine translation models using paired bootstrap resampling. It integrates with OpenNMT-py and uses the eval class in evaluation.py for evaluation.
+- Provide detailed statistics:
+    - Mean scores and standard deviations
+    - Win counts and ratios
+    - Approximate p-values
+    - Confidence intervals
+  
+[Note: argparse is yet to be implemented]
 
 ### tools\analyze_line_endings.py:
 
@@ -172,6 +216,10 @@ This script will:
 - Analyze vocabulary and token frequencies in (parallel) text files.
 - Produce a chart showing token frequencies at different thresholds
 - Print basic stats to terminal
+
+### tools\analyze_overlap.py
+This script will:
+- Analyse overlap between two parallel langauge data files
 
 # Additional files
 

@@ -1,2 +1,10 @@
 devfiles/
+processed_data_moses/
+onmt_data/
+train_config.yaml
 data/
+translations_20241102_175428/
+translations_20241102_181639/
+translations/
+translations*/
+

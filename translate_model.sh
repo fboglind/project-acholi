@@ -12,14 +12,14 @@
 CUDA_VISIBLE_DEVICES=0
 
 # Directory settings
-PROJECT_DIR=/proj/uppmax2024-2-13/private/acholi_mt24/project-acholi-mt24
+PROJECT_DIR=/home/oslj9489/private/project-acholi-mt24 #Change to your working directory
 DATA_DIR=$PROJECT_DIR/onmt_data
 MODEL_DIR=$PROJECT_DIR/onmt_data/onmt_model
 OUTPUT_DIR=$PROJECT_DIR/translations
 mkdir -p $OUTPUT_DIR
 
 # Model path - adjust the step number as needed
-MODEL_PATH=$MODEL_DIR/model_step_100000.pt  # Change this to your best model checkpoint
+MODEL_PATH=$MODEL_DIR/model_step_6000.pt  # Change this to your best model checkpoint
 
 # Test data paths
 TEST_SRC=$DATA_DIR/test.bpe.ach  # Your BPE-encoded test source file

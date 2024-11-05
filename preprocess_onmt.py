@@ -323,7 +323,7 @@ if __name__ == "__main__":
 #   --src-bpe-operations 5000 \
 #   --tgt-bpe-operations 6000
 
-# Run 3
+# # Run 3
 # python preprocess_onmt.py \
 #   --train-src processed_data_moses/salt.train.tk.lc.clean.ach \
 #   --train-tgt processed_data_moses/salt.train.tk.lc.clean.eng \
