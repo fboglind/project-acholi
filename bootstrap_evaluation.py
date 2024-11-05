@@ -10,6 +10,7 @@ from pathlib import Path
 import tempfile
 from evaluation import eval
 
+
 class OpenNMTBootstrapEvaluator:
     def __init__(self, 
                  src_file: str,
@@ -19,8 +20,8 @@ class OpenNMTBootstrapEvaluator:
                  eval_class,
                  n_iterations: int = 1000,
                  batch_size: int = 32,
-                 beam_size: int = 5,
-                 gpu: str = "0",
+                 beam_size: int = 7,
+                 gpu: str = "1",
                  temp_dir: str = "bootstrap_temp") -> None:
         """
         Initialize the bootstrap evaluator for comparing two OpenNMT models.
@@ -224,7 +225,7 @@ class OpenNMTBootstrapEvaluator:
 evaluator = OpenNMTBootstrapEvaluator(
     src_file="processed_data_moses/salt.test.tk.lc.ach",
     baseline_model_path="onmt_data/onmt_model",
-    experimental_model_path="experimental_model",
+    experimental_model_path="onmt_data_oskar/onmt_model",
     ref_file="processed_data_moses/salt.test.tk.lc.eng",
     eval_class=eval,  
     n_iterations=1000,

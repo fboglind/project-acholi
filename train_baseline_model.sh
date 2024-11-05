@@ -20,7 +20,7 @@ CUDA_VISIBLE_DEVICES=0
 # Directory settings 
 DATA_DIR=/onmt_data # ENTER the full path to your data catalogue (onmt_data/)here if needed
 SAVE_DIR= $DATA_DIR/onmt_model # ENTER  (onmt_data/) DIRECTORY HERE
->>>>>>> 0d0899f1ec012d51ac6e98069d29f078859dc635
+# >>>>>>> 0d0899f1ec012d51ac6e98069d29f078859dc635 #?
 mkdir -p $SAVE_DIR
 
 # Configuration file for training
