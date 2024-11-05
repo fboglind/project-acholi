@@ -183,7 +183,7 @@ This script will:
 This script will:
 - Load a batch job on the server in order to train a baseline model
 
-### evaluate.py
+### evaluation.py
 
 This script will:
 
@@ -191,7 +191,6 @@ Evaluate the output translations of a machine translation model using these metr
 - BLEU
 - METEOR
 - COMET
-[Note: argparse is yet to be implemented]
 
 ### bootstrap_evaluation.py
 
