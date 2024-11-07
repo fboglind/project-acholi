@@ -115,25 +115,22 @@ ________________________________________________________________________________
 
 ### extract_data.py
 
-This script extracts parallel data from the Sunbird/salt dataset on Hugging Face.
+This script extracts raw parallel Acholi-English data from the Sunbird/salt dataset on Hugging Face.
 
 **Usage:**
 ```
 python extract_data.py
 ```
 
-This script will extract raw Acholi-English parallel data
-
 ### preprocess.sh
 
-This bash script preprocesses the extracted data for use with Moses SMT.
+This script preprocesses the extracted data for use with Moses SMT.
 
 **Usage:**
 ```
-./preprocess.sh
+bash preprocess.sh
 ```
-
-This script will:
+The script will:
 - Tokenize the Acholi and English texts
 - Lowercase all tokens
 - Clean the training corpus (remove long sentences and empty lines)
