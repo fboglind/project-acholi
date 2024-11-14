@@ -61,7 +61,7 @@ python preprocess_onmt.py \
 Use the newly created file *data_config.yaml* as a base. Set parameters. See example-file: *train_config.yaml.example*.
 
 ### Step 6: Submit job to Snowy (Uppmax cluster):
-If needed update DATA_DIR with the the full path to data directory
+If needed update DATA_DIR in train_baseline_model.sh with the the full path to data directory
 ```
 sbatch train_baseline_model.sh
 ```
@@ -70,7 +70,7 @@ Run script to preprocess the test set using the same encoding as for the test an
 ```
 python preprocess_test_data.py
 ```
-### Step 8: Translate using the newly trained model [WILL BE UPDATED]
+### Step 8: Translate using the newly trained model
 Use the the newly trained model to translate the data in the test set
 
 ```
@@ -85,8 +85,8 @@ This script will:
 - Save all translations and results
 - Identify the best performing configuration
 
-The script will create a timestamped directory with:
-- All translations for each configuration
+The script will also create a timestamped directory with:
+- Translations for each configuration
 - A CSV file with all results
 - Logs showing the best configuration
 
@@ -100,7 +100,7 @@ python batch_translate.py \
     --batch-sizes 16 32 64
 
 ## Baseline Training:
-![Translation Results](images/baseline_translation.svg)
+![Translation Results](images/baseline_result.png)
 
 | Checkpoint | Best BLEU | Best chrF | Optimal Beam Size |
 |------------|-----------|-----------|-------------------|
@@ -115,25 +115,22 @@ ________________________________________________________________________________
 
 ### extract_data.py
 
-This script extracts parallel data from the Sunbird/salt dataset on Hugging Face.
+This script extracts raw parallel Acholi-English data from the Sunbird/salt dataset on Hugging Face.
 
 **Usage:**
 ```
 python extract_data.py
 ```
 
-This script will extract raw Acholi-English parallel data
-
 ### preprocess.sh
 
-This bash script preprocesses the extracted data for use with Moses SMT.
+This script preprocesses the extracted data for use with Moses SMT.
 
 **Usage:**
 ```
-./preprocess.sh
+bash preprocess.sh
 ```
-
-This script will:
+The script will:
 - Tokenize the Acholi and English texts
 - Lowercase all tokens
 - Clean the training corpus (remove long sentences and empty lines)

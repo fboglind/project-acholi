@@ -1,18 +1,10 @@
 """
 TO-DO:
     
-    1. Quality control and cleaning of the bibles:  DONE
-        - Match verse number                        DONE
-        - Solve the n in acholi                     DONE
-        - Find and remove empty verses              DONE
-
-    2. Merge Bibles and SALT to train, dev and test files. 
-    
-    3. Clean the data:
-        - Tokenize
-        - Lower case
-        - Limit sentence length
-
+    1. Quality control and cleaning of the bibles:  
+        - Match verse number                        
+        - Solve the n in acholi                     
+        - Find and remove empty verses          
 """
 import os
 import sys
