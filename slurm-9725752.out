@@ -1,4 +1,0 @@
-/var/spool/slurmd/job9725752/slurm_script: rad 22: /onmt_data/onmt_model: Filen eller katalogen finns inte
-mkdir: argument saknas
-Försök med ”mkdir --help” för mer information.
-Configuration file not found: /onmt_data/train_config.yaml
